@@ -57,7 +57,7 @@ resource "google_container_node_pool" "alpha_pool_general" {
   node_count = 1
 
   node_config {
-    preemptible  = true
+    spot = true
     machine_type = "e2-medium"
 
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
