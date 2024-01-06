@@ -1,6 +1,13 @@
 # infra
 My personal cloud infrastructure as code.
 
+## Directory
+
+```
+main/               -   Terraform to build cluster and pet servers.
+cluster-service/    -   Scripts to install cluster add-ons.
+```
+
 
 ## Install
 1. Install Gcloud, Terraform, and Kubectl.

@@ -1,44 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.74.0"
-    }
-  }
-
-  required_version = ">= 0.14"
-}
-
-provider "google" {
-  project = var.project_id
-  region  = var.region
-}
-
-variable "project_id" {
-  description = "project id"
-}
-
-variable "region" {
-  description = "region"
-}
-
-resource "google_compute_network" "vpc" {
-  name                    = "${var.project_id}-vpc"
-  auto_create_subnetworks = "false"
-}
-
-resource "google_compute_subnetwork" "subnet" {
-  name          = "${var.project_id}-subnet"
-  region        = var.region
-  network       = google_compute_network.vpc.name
-  ip_cidr_range = "10.10.0.0/24"
-}
-
-resource "google_service_account" "default" {
-  account_id   = "service-account-id"
-  display_name = "Service Account"
-}
-
 resource "google_container_cluster" "alpha" {
   name     = "alpha"
   location = "us-central1-a"
@@ -66,4 +25,14 @@ resource "google_container_node_pool" "alpha_pool_general" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
+}
+
+output "kubernetes_cluster_name" {
+  value       = google_container_cluster.alpha.name
+  description = "GKE Cluster Name"
+}
+
+output "kubernetes_cluster_host" {
+  value       = google_container_cluster.alpha.endpoint
+  description = "GKE Cluster Host"
 }
