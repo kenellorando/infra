@@ -33,10 +33,10 @@ resource "google_compute_instance" "cadence" {
   }
 
   scheduling {
-    automatic_restart   = false
-    # on_host_maintenance = "MIGRATE"
-    preemptible         = true
-    provisioning_model  = "SPOT"
+    automatic_restart   = true
+    on_host_maintenance = "MIGRATE"
+    preemptible         = false
+    # provisioning_model  = "SPOT"
   }
 
   service_account {
